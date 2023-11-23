@@ -32,30 +32,35 @@
             margin-top: 20px;
             font-size: 1rem;
             padding: 10px 20px;
+            border-radius: 10px;
         }
 
-        @media (max-width: 767.98px) {
-            /* Small devices (phones) */
+        /* Responsive styles for small devices (phones) */
+        @media (max-width: 1000px) {
             body {
-                padding-top: 0;
+                padding-top: 50;
             }
 
             .jumbotron {
-                padding: 150px;
+                padding: 50px;
+                height: 1000px;
+                /* width: 100px;     */
             }
 
             h1 {
-                font-size: 1.5rem;
+                font-size: 5rem;
             }
 
             p {
-                font-size: 0.875rem;
+                font-size: 3rem;
             }
 
             .btn-google {
                 margin-top: 15px;
-                font-size: 1rem;
-                padding: 8px 16px;
+                font-size: 4rem;
+                padding: 25px 50px;
+                border-radius: 10px;
+
             }
         }
     </style>
@@ -66,7 +71,8 @@
         <div class="jumbotron">
             <h1><span class="fa fa-lock"></span> Social Authentication</h1>
             <p>Login or Register with:</p>
-            <a href="/auth/google" class="btn btn-danger btn-google"><span class="fa fa-google"></span> Sign In with Google</a>
+            <a href="/auth/google" class="btn btn-danger btn-google"><span class="fa fa-google"></span> Sign In with
+                Google</a>
         </div>
     </div>
 </body>
