@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Demo App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-thumbnail.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        body {
+            padding-top: 70px;
+        }
+
+        .jumbotron {
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .profile-info {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+        }
+
+        .image-upload-form {
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .lg-backdrop {
+            background: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .lg-outer {
+            opacity: 1 !important;
+        }
+
+        @media (max-width: 1000px) {
+
+            /* Small devices (phones) */
+            body {
+                padding-top: 50;
+                font-size: 3rem;
+
+            }
+
+            .jumbotron {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 5rem;
+            }
+
+            p {
+                font-size: 3rem;
+            }
+
+            .profile-info {
+                display: inline-block;
+                text-align: center;
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                box-sizing: border-box;
+                word-wrap: break-word;
+                white-space: nowrap;
+                word-wrap: break-word;
+                word-break: break-all;
+
+            }
+
+            .btn {
+                margin-top: 10px;
+                font-size: 3rem;
+                padding: 10px 20px;
+                border-radius: 10px;
+            }
+
+
+            .image-upload-form {
+                margin-top: 10px;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-center animate__animated animate__fadeIn">
+            <h1 class="text-primary"><span class="fa fa-user"></span> Profile Information</h1>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <div class="profile-info">
+                        <p>
+                            <span><strong>Id</strong>: <%= user.id %></span><br>
+                            <span><strong>Email</strong>: <%= user.emails[0].value %></span><br>
+                            <span><strong>Name</strong>: <%= user.displayName %></span>
+                        </p>
+
+                    </div>
+                    <form action="/logout" method="get" class="logout-btn animate__animated animate__fadeIn">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h1 class="text-center">Image Upload</h1>
+            <div class="row justify-content-center">
+                <form action="/upload" method="post" enctype="multipart/form-data"
+                    class="image-upload-form animate__animated animate__fadeIn">
+                    <div class="form-group justify-content-center">
+                        <label for="image">Choose an image:</label>
+                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <h1 class="text-center">Image Gallery</h1>
+            <div class="gallery" id="lightgallery">
+                <% images.forEach((image, index)=> { %>
+                    <a href="data:<%= image.contentType %>;base64,<%= image.data.toString('base64') %>"
+                        data-lg-size="1200-800">
+                        <img src="data:<%= image.contentType %>;base64,<%= image.data.toString('base64') %>"
+                            alt="Gallery Image <%= index + 1 %>" />
+                    </a>
+                    <% }); %>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script>
+        // Initialize LightGallery
+        document.addEventListener("DOMContentLoaded", function () {
+            lightGallery(document.getElementById('lightgallery'), {
+                thumbnail: true,
+                animateThumb: false,
+                showThumbByDefault: false,
+                mode: 'lg-fade',
+                download: false,
+            });
+        });
+    </script>
+</body>
+
+</html>
